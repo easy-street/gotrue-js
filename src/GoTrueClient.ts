@@ -226,6 +226,26 @@ export default class GoTrueClient {
   }
 
   /**
+   * Sets the session access token
+   * @param accessToken A valid, logged-in JWT access token.
+   */
+  setSession(accessToken: string): { error: Error | null } {
+    try {
+      const session: Session = {
+        access_token: accessToken,
+        token_type: 'bearer',
+        user: null,
+      }
+
+      this._saveSession(session)
+
+      return { error: null }
+    } catch (error) {
+      return { error }
+    }
+  }
+
+  /**
    * Updates user data, if there is a logged in user.
    */
   async update(
